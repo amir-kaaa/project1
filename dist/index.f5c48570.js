@@ -544,18 +544,22 @@ const $site = document.querySelector("#site");
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "templates", ()=>templates);
-var _utills = require("./utills");
+var _utils = require("./utils");
 function title(block) {
     const { tag , style  } = block.options;
-    return (0, _utills.row)((0, _utills.col)(`<${tag}>${block.value}</${tag}>`), (0, _utills.css)(style));
+    const html1 = (0, _utils.col6)(block.value[1]);
+    const html2 = (0, _utils.col)(block.value[0]);
+    const html3 = (0, _utils.col)(block.value[2]);
+    return (0, _utils.row)(html2, (0, _utils.css)(style), html1, html3);
 }
 function text(block) {
     const { tag , style  } = block.options;
-    return (0, _utills.row)((0, _utills.col)(`<${tag}>${block.value}<${tag}>`), (0, _utills.css)(style));
+    return (0, _utils.row)((0, _utils.col)(`<${tag}>${block.value}<${tag}>`), (0, _utils.css)(style));
 }
 function columns(block) {
-    const html = block.value.map((0, _utills.col)).join("");
-    return (0, _utills.row)(html);
+    const { tag , style  } = block.options;
+    const html = block.value.map((item)=>(0, _utils.col)(`<${tag}>${item}</${tag}>`)).join("");
+    return (0, _utils.row)(html);
 }
 const templates = {
     title,
@@ -563,7 +567,28 @@ const templates = {
     columns
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./utills":"juvQx"}],"gkKU3":[function(require,module,exports) {
+},{"./utils":"en4he","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"en4he":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "row", ()=>row);
+parcelHelpers.export(exports, "col", ()=>col);
+parcelHelpers.export(exports, "col6", ()=>col6);
+parcelHelpers.export(exports, "css", ()=>css);
+function row(content2 = "", style = "", content = "", content3 = "") {
+    return `<div class="row" style="${style}">${content2} ${content} ${content3}</div>`;
+}
+function col(content) {
+    return `<div class="col">${content}</div>`;
+}
+function col6(content) {
+    return `<div class="col-6">${content}</div>`;
+}
+function css(style = {}) {
+    const toString = (key)=>`${key}: ${style[key]}`;
+    return Object.keys(style).map(toString).join(";");
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -593,39 +618,35 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"juvQx":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "row", ()=>row);
-parcelHelpers.export(exports, "col", ()=>col);
-parcelHelpers.export(exports, "css", ()=>css);
-function row(content, style = "") {
-    return `<div class="row" style="${style}">${content}</div>`;
-}
-function col(content) {
-    return `<div class="col-sm">${content}</div>`;
-}
-function css(style = {}) {
-    const toString = (key)=>`${key}: ${style[key]}`;
-    return Object.keys(style).map(toString).join(";");
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dEDha":[function(require,module,exports) {
+},{}],"dEDha":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "model", ()=>model);
 const model = [
     {
         type: "title",
-        value: "students` portal",
+        value: [
+            "menu",
+            "students` portal",
+            "log in"
+        ],
         options: {
             tag: "h1",
             style: {
                 background: "linear-gradient(to right, #ff99, #493240)",
                 color: "bisque",
-                "text-align": "center",
                 padding: "1.5rem",
                 "background-color": "red"
+            }
+        }
+    },
+    {
+        type: "menu",
+        value: "menu",
+        options: {
+            tag: "h2",
+            style: {
+                "vertical-align": "top"
             }
         }
     },
@@ -634,7 +655,9 @@ const model = [
         value: "some text",
         options: {
             tag: "h4",
-            style: `margin-top: '10px'`
+            style: {
+                "margin-top": "40px"
+            }
         }
     },
     {
@@ -644,7 +667,10 @@ const model = [
             "2222",
             "3333",
             "4444"
-        ]
+        ],
+        style: {
+            "margin-top": "40px"
+        }
     }
 ];
 
