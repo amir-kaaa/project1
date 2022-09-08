@@ -1,0 +1,13 @@
+.container-fluid {
+    background-color: rgb(15, 42, 65);
+    margin-top: 20px;
+}
+
+#site {
+    color: bisque;
+    text-align: center;
+}
+
+html {
+    background-color: rgb(15, 42, 65);
+}

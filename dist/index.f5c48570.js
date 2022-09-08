@@ -532,59 +532,122 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"8ZNvh":[function(require,module,exports) {
+var _templates = require("./templates");
+var _model = require("./model");
+const $site = document.querySelector("#site");
+(0, _model.model).forEach((block)=>{
+    const toHTML = (0, _templates.templates)[block.type];
+    if (toHTML) $site.insertAdjacentHTML("beforeend", toHTML(block));
+});
+
+},{"./templates":"gOO7a","./model":"dEDha"}],"gOO7a":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "templates", ()=>templates);
+var _utills = require("./utills");
+function title(block) {
+    const { tag , style  } = block.options;
+    return (0, _utills.row)((0, _utills.col)(`<${tag}>${block.value}</${tag}>`), (0, _utills.css)(style));
+}
+function text(block) {
+    const { tag , style  } = block.options;
+    return (0, _utills.row)((0, _utills.col)(`<${tag}>${block.value}<${tag}>`), (0, _utills.css)(style));
+}
+function columns(block) {
+    const html = block.value.map((0, _utills.col)).join("");
+    return (0, _utills.row)(html);
+}
+const templates = {
+    title,
+    text,
+    columns
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./utills":"juvQx"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, "__esModule", {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === "default" || key === "__esModule" || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"juvQx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "row", ()=>row);
+parcelHelpers.export(exports, "col", ()=>col);
+parcelHelpers.export(exports, "css", ()=>css);
+function row(content, style = "") {
+    return `<div class="row" style="${style}">${content}</div>`;
+}
+function col(content) {
+    return `<div class="col-sm">${content}</div>`;
+}
+function css(style = {}) {
+    const toString = (key)=>`${key}: ${style[key]}`;
+    return Object.keys(style).map(toString).join(";");
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dEDha":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "model", ()=>model);
 const model = [
     {
         type: "title",
-        value: "Hello World!"
+        value: "students` portal",
+        options: {
+            tag: "h1",
+            style: {
+                background: "linear-gradient(to right, #ff99, #493240)",
+                color: "bisque",
+                "text-align": "center",
+                padding: "1.5rem",
+                "background-color": "red"
+            }
+        }
     },
     {
         type: "text",
-        value: "some text"
+        value: "some text",
+        options: {
+            tag: "h4",
+            style: `margin-top: '10px'`
+        }
     },
     {
         type: "columns",
         value: [
             "1111",
             "2222",
-            "3333"
+            "3333",
+            "4444"
         ]
     }
 ];
-const $site = document.querySelector("#site");
-model.forEach((block)=>{
-    let html = "";
-    if (block.type === "title") html = title(block);
-    else if (block.type === "text") html = text(block);
-    else if (block.type === "columns") hmtl = columns(block);
-    $site.insertAdjacentHTML("beforeend", html);
-});
-function title(block) {
-    return `
-        <div class="row">
-            <div class="col-sm">
-                <h1>${block.value}</h1>
-            </div>
-        </div>
-    `;
-}
-function text(block) {
-    return `
-        <div class="row">
-            <div class="col-sm">
-                <p>${block.value}</p>
-            </div>
-        </div> 
-    `;
-}
-function columns(block) {
-    const html = block.value.map((item)=>`<div class="col-sm">${item}</div>`);
-    return `
-        <div class="row">
-            ${html.join("")}
-        </div>
-    `;
-}
 
-},{}]},["4qavH","8ZNvh"], "8ZNvh", "parcelRequire6b99")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["4qavH","8ZNvh"], "8ZNvh", "parcelRequire6b99")
 
 //# sourceMappingURL=index.f5c48570.js.map
