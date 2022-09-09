@@ -4,7 +4,7 @@ export const model = [
         'students` portal',
         'log in'
     ], options: {
-        tag: 'h1',
+        tag: 'h3',
         style: {
             background: 'linear-gradient(to right, #ff99, #493240)',
             color: 'bisque',
@@ -12,10 +12,10 @@ export const model = [
             'background-color': 'red',
         }
     }},
-    {type: 'menu', value: 'menu', options: {
-        tag: 'h2',
-        style: {'vertical-align': 'top'}
-    }},
+    // {type: 'menu', value: 'menu', options: {
+    //     tag: 'h1',
+    //     style: {'vertical-align': 'top'}
+    // }},
     {type: 'text', value: 'some text', options: {
         tag: 'h4',
         style: {'margin-top': '40px'}
@@ -25,5 +25,8 @@ export const model = [
         '2222',
         '3333',
         '4444'
-    ], style: {'margin-top':'40px'}}
+    ], options: {
+        tag: 'h4',
+        style: {'margin-top':'40px'}
+    }}
 ]

@@ -547,19 +547,19 @@ parcelHelpers.export(exports, "templates", ()=>templates);
 var _utils = require("./utils");
 function title(block) {
     const { tag , style  } = block.options;
-    const html1 = (0, _utils.col6)(block.value[1]);
-    const html2 = (0, _utils.col)(block.value[0]);
-    const html3 = (0, _utils.col)(block.value[2]);
+    const html1 = (0, _utils.col9)(`<h1>` + block.value[1] + `</h1>`);
+    const html2 = (0, _utils.col)(`<${tag}>` + block.value[0] + `<${tag}>`);
+    const html3 = (0, _utils.col)(`<${tag}>` + block.value[2] + `<${tag}>`);
     return (0, _utils.row)(html2, (0, _utils.css)(style), html1, html3);
 }
 function text(block) {
     const { tag , style  } = block.options;
-    return (0, _utils.row)((0, _utils.col)(`<${tag}>${block.value}<${tag}>`), (0, _utils.css)(style));
+    return (0, _utils.row)(`<${tag}>${block.value}<${tag}>`, (0, _utils.css)(style));
 }
 function columns(block) {
     const { tag , style  } = block.options;
-    const html = block.value.map((item)=>(0, _utils.col)(`<${tag}>${item}</${tag}>`)).join("");
-    return (0, _utils.row)(html);
+    const html = block.value.map((item)=>(0, _utils.col)(`<${tag}>` + item + `<${tag}>`)).join("");
+    return (0, _utils.row)(html, (0, _utils.css)(style));
 }
 const templates = {
     title,
@@ -572,7 +572,7 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "row", ()=>row);
 parcelHelpers.export(exports, "col", ()=>col);
-parcelHelpers.export(exports, "col6", ()=>col6);
+parcelHelpers.export(exports, "col9", ()=>col9);
 parcelHelpers.export(exports, "css", ()=>css);
 function row(content2 = "", style = "", content = "", content3 = "") {
     return `<div class="row" style="${style}">${content2} ${content} ${content3}</div>`;
@@ -580,8 +580,8 @@ function row(content2 = "", style = "", content = "", content3 = "") {
 function col(content) {
     return `<div class="col">${content}</div>`;
 }
-function col6(content) {
-    return `<div class="col-6">${content}</div>`;
+function col9(content) {
+    return `<div class="col-9">${content}</div>`;
 }
 function css(style = {}) {
     const toString = (key)=>`${key}: ${style[key]}`;
@@ -631,7 +631,7 @@ const model = [
             "log in"
         ],
         options: {
-            tag: "h1",
+            tag: "h3",
             style: {
                 background: "linear-gradient(to right, #ff99, #493240)",
                 color: "bisque",
@@ -640,16 +640,10 @@ const model = [
             }
         }
     },
-    {
-        type: "menu",
-        value: "menu",
-        options: {
-            tag: "h2",
-            style: {
-                "vertical-align": "top"
-            }
-        }
-    },
+    // {type: 'menu', value: 'menu', options: {
+    //     tag: 'h1',
+    //     style: {'vertical-align': 'top'}
+    // }},
     {
         type: "text",
         value: "some text",
@@ -668,8 +662,11 @@ const model = [
             "3333",
             "4444"
         ],
-        style: {
-            "margin-top": "40px"
+        options: {
+            tag: "h4",
+            style: {
+                "margin-top": "40px"
+            }
         }
     }
 ];

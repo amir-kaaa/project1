@@ -6,8 +6,8 @@ export function col(content) {
     return `<div class="col">${content}</div>`
 }
 
-export function col6(content) {
-    return `<div class="col-6">${content}</div>`
+export function col9(content) {
+    return `<div class="col-9">${content}</div>`
 }
 
 export function css(style = {}) {
