@@ -547,38 +547,55 @@ parcelHelpers.export(exports, "templates", ()=>templates);
 var _utils = require("./utils");
 function title(block) {
     const { tag , style  } = block.options;
-    const html1 = (0, _utils.col9)(`<h1>` + block.value[1] + `</h1>`);
-    const html2 = (0, _utils.col)(`<${tag}>` + block.value[0] + `<${tag}>`);
-    const html3 = (0, _utils.col)(`<${tag}>` + block.value[2] + `<${tag}>`);
-    return (0, _utils.row)(html2, (0, _utils.css)(style), html1, html3);
+    const html = (0, _utils.col9)(`<${tag}>${block.value}<${tag}>`);
+    return (0, _utils.row1)(html, (0, _utils.css)(style));
+}
+function button1(block) {
+    const $site = document.querySelector("#row1");
+    const { tag , style  } = block.options;
+    const html = (0, _utils.col)(`<${tag}>${block.value}<${tag}>`, (0, _utils.css)(style));
+    $site.insertAdjacentHTML("afterbegin", html);
+    return;
+}
+function button2(block) {
+    const $site = document.querySelector("#row1");
+    const { tag , style  } = block.options;
+    const html = (0, _utils.col)(`<${tag}>${block.value}<${tag}>`, (0, _utils.css)(style));
+    $site.insertAdjacentHTML("beforeend", html);
 }
 function text(block) {
     const { tag , style  } = block.options;
-    return (0, _utils.row)(`<${tag}>${block.value}<${tag}>`, (0, _utils.css)(style));
+    return (0, _utils.row1)(`<${tag}>${block.value}<${tag}>`, (0, _utils.css)(style));
 }
 function columns(block) {
     const { tag , style  } = block.options;
     const html = block.value.map((item)=>(0, _utils.col)(`<${tag}>` + item + `<${tag}>`)).join("");
-    return (0, _utils.row)(html, (0, _utils.css)(style));
+    return (0, _utils.row1)(html, (0, _utils.css)(style));
 }
 const templates = {
     title,
     text,
-    columns
+    columns,
+    button1,
+    button2
 };
 
 },{"./utils":"en4he","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"en4he":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "row", ()=>row);
+parcelHelpers.export(exports, "row1", ()=>row1);
+parcelHelpers.export(exports, "row2", ()=>row2);
 parcelHelpers.export(exports, "col", ()=>col);
 parcelHelpers.export(exports, "col9", ()=>col9);
 parcelHelpers.export(exports, "css", ()=>css);
-function row(content2 = "", style = "", content = "", content3 = "") {
-    return `<div class="row" style="${style}">${content2} ${content} ${content3}</div>`;
+function row1(content, style = "") {
+    return `<div id="row1" class="row" style="${style}">${content}</div>`;
 }
-function col(content) {
-    return `<div class="col">${content}</div>`;
+function row2(content, style = "") {
+    return `<div id="row2" class="row" style="${style}">${content}</div>`;
+}
+function col(content, style = "") {
+    return `<div class="col" style="${style}">${content}</div>`;
 }
 function col9(content) {
     return `<div class="col-9">${content}</div>`;
@@ -625,13 +642,9 @@ parcelHelpers.export(exports, "model", ()=>model);
 const model = [
     {
         type: "title",
-        value: [
-            "menu",
-            "students` portal",
-            "log in"
-        ],
+        value: "students` portal",
         options: {
-            tag: "h3",
+            tag: "h1",
             style: {
                 background: "linear-gradient(to right, #ff99, #493240)",
                 color: "bisque",
@@ -640,10 +653,28 @@ const model = [
             }
         }
     },
-    // {type: 'menu', value: 'menu', options: {
-    //     tag: 'h1',
-    //     style: {'vertical-align': 'top'}
-    // }},
+    {
+        type: "button1",
+        value: "menu",
+        options: {
+            tag: "h1",
+            style: {
+                color: "yellow",
+                "vertical-align": "middle"
+            }
+        }
+    },
+    {
+        type: "button2",
+        value: "log in",
+        options: {
+            tag: "h1",
+            style: {
+                color: "brown",
+                "vertical-align": "middle"
+            }
+        }
+    },
     {
         type: "text",
         value: "some text",
